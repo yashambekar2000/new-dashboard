@@ -28,7 +28,8 @@
                     <p class="totalAmount">12000 ₹</p>
             </div>
 
-            <form class="addExpense" >
+            <form class="addExpense" action="/expenses" method="post">
+                {{csrf_field()}}
                 <input type="text" name="description" required class="form-control form-control-lg" placeholder="Expense Description">
                 <span>
                     @error('description')
@@ -57,6 +58,7 @@
                 </div>
 
             </form>
+
 
             <div class="tableDiv">
 

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashbordController;
+use views\login;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +38,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('expenses_list');
 // });
 
-// Route::get('/users', function () {
-//     return view('user_management');
-// });
-
+Route::get( '/', [LoginController::class , 'index1']);
+Route::post( '/', [LoginController::class , 'checklogin']);
+Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
+Route::get( '/expenses', [DashbordController::class , 'expenseList']);
+Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
+Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
+Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
+Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);

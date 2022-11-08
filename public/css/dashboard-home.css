@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
+
+.adjustSidebar{
+    display: flex;
+}
+main{
+    width: 100%;
+}
+nav{
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+nav>img{
+    margin-right: 20px;
+    width: 65px;
+}
+.imageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 60vh;
+    margin: 10px 20px;
+    border: 6px double orange;
+    text-align: center;
+}
+.imageContainer>p{
+    margin-top: 10px;
+    font-size: 50px;
+    color: #ffae00;
+    font-family: 'Rozha One', serif;
+}
+.imageContainer>img{
+    width: 15vw;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width:800px) {
+
+    .imageContainer>img{
+        width: 200px;
+    }
+    .imageContainer{
+        height: 70vh;
+    }
+}

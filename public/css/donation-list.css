@@ -49,7 +49,10 @@ td, th {
 }
   @media (max-width:800px) {
     body{
-     overflow-x: hidden;
+     overflow-x:hidden;
+    }
+    main{
+      width: 90%;
     }
      .tableDiv{
          width: 100%;

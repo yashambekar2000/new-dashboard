@@ -28,11 +28,34 @@
                     <p class="totalAmount">12000 ₹</p>
             </div>
 
-            <form class="addExpense">
-                <input type="text" required placeholder="Expense Description" class="form-control form-control-lg">
-                <input class="form-control" required type="number" placeholder="Amount ₹">
-                <button type="submit" class="btn btn-success">Add Expense</button>
+            <form class="addExpense" >
+                <input type="text" name="description" required class="form-control form-control-lg" placeholder="Expense Description">
+                <span>
+                    @error('description')
+                    {{$message}}
+                    @enderror
+                  </span>
+
+                <input class="form-control" name="amount" id="addAmount" required type="number" placeholder="Amount ₹">
+                <span>
+                    @error('amount')
+                    {{$message}}
+                    @enderror
+                  </span>
+
+                <div class="btn btn-success" onclick="conformAddExpense('add')">Add Expense</div>
                 <button type="reset" class="btn btn-outline-secondary">Clear</button>
+
+                <div class="conformMsgWrapper" id="conformMsgWrapper">
+                    <div class="conformMsg">
+                        <p>Are you Sure ?</p>
+                        <div class="conformMsgBtnsDiv">     
+                           <button class="btn btn-success" type="submit">Add</button> 
+                           <div class="btn btn-danger" onclick="conformAddExpense('cancel')">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+
             </form>
 
             <div class="tableDiv">
@@ -90,5 +113,17 @@
         </main>
     </div>
    
+    <script>
+        function conformAddExpense(value){
+            let conformMsg = document.getElementById('conformMsgWrapper');
+            
+            if(value == 'add' ){
+                conformMsg.style.display="flex";
+            }
+            else{
+                conformMsg.style.display="none";
+            }
+        }
+    </script>
    </body>
 </html>

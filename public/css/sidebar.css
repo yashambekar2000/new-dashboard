@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 
@@ -15,9 +16,20 @@ a, a:hover, a:focus {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
+
+#sidebarSupport{
+    width:250px ;
+    height: 10vh;
+    transition: all 0.3s;
+}
+.sidebarSupport{
+    width: 50px !important;
+    transition: all 0.3s;
+}
+
 #sidebar {
     width: 250px;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -26,11 +38,22 @@ a, a:hover, a:focus {
     color: #fff;
     transition: all 0.3s;
 }
-
-#sidebar.active {
-    margin-left: -250px;
+.openSidebar{
+    left: -200px !important;
+    transition: all 0.3s;
 }
 
+.menuIcon{
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0px 6px 50px;
+        border-radius: 20px;
+      }
+
+.sidebar-header{
+    display: flex;
+}
 #sidebar .sidebar-header {
     padding: 20px;
     background: #6d7fcc;
@@ -113,3 +136,12 @@ a.article, a.article:hover {
     MEDIAQUERIES
 ----------------------------------------------------- */
 
+@media (max-width:800px) {
+
+    .menuIcon{
+        margin: 6px 0px 6px 70px;
+      }
+      #sidebarSupport{
+        width:50px !important;
+    }
+}

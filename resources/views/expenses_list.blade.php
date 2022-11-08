@@ -28,11 +28,15 @@
                     <p class="totalAmount">12000 ₹</p>
             </div>
 
-            <form class="addExpense">
-                <input type="text" required placeholder="Expense Description" class="form-control form-control-lg">
-                <input class="form-control" required type="number" placeholder="Amount ₹">
+            <form class="addExpense" action="/expenses" method="post">
+            {{csrf_field()}}
+                <input name="description" type="text"  required placeholder="Expense Description" class="form-control form-control-lg">
+                <input name="amount" class="form-control" required type="number" placeholder="Amount ₹">
                 <button type="submit" class="btn btn-success">Add Expense</button>
                 <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                @if(session('status'))
+<h3 class="alert alert-warning mb-2">{{session('status')}}</h3>
+@endif
             </form>
 
             <div class="tableDiv">

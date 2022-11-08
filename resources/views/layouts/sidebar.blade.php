@@ -19,7 +19,7 @@
                     <a href="/">Devoters</a>
                 </li>
                 <li class=@yield('donations')>
-                    <a href="/donation">Donations</a>
+                    <a href="/donationlist">Donations</a>
                 </li>
                 <li class=@yield('expenses')>
                     <a href="/expenses">Expenses</a>

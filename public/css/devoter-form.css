@@ -1,0 +1,78 @@
+nav{
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+nav>img{
+    margin-right: 20px;
+    width: 65px;
+}
+
+form{
+    border: 2px solid orange;
+    border-radius: 10px;
+    width: 60%;
+    margin:50px auto;
+    padding: 20px;
+    -webkit-box-shadow: 0px 3px 18px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 3px 18px -4px rgba(0,0,0,0.75);
+box-shadow: 0px 3px 18px -4px rgba(0,0,0,0.75);
+}
+.form-row{
+    display: flex;
+}
+.mobile{
+    margin-left: 8%;
+}
+input{
+    margin-bottom: 20px;
+}
+/* conform msg css**************************** */
+.conformMsgWrapper{
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+   .conformMsg{
+    margin:auto;
+    padding: 20px;
+    text-align: center;
+    color: orange;
+    background-color: #eee;
+    border: 3px solid orange;
+    width: 300px;
+    height: 150px;
+    border-radius: 20px;
+   }
+   .conformMsg>p{
+    font-size: 22px;
+    margin-bottom: 30px;
+   }
+   .conformMsgBtnsDiv{
+    margin: auto;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+   }
+  
+    @media (max-width:800px) {
+     form{
+        width: 90%;
+     }
+     .form-row{
+        display: block;
+    }
+    .mobile{
+        margin-left: 0px;
+    }
+   }
+  

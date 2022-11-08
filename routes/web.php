@@ -16,16 +16,18 @@ use views\login;
 |
 */
 
-Route::get( '/', [LoginController::class , 'index1']);
-Route::post( '/', [LoginController::class , 'checklogin']);
-Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
-Route::get( '/expenses', [DashbordController::class , 'expenseList']);
-Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
-Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
-Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
-Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
+
 // Route::get('/', function () {
+//     return view('dashboard_home');
+// });
+
+
+// Route::get('/devoters', function () {
 //     return view('devoters_list');
+// });
+
+// Route::get('/devoters/devoter-form', function () {
+//     return view('devoter_form');
 // });
 
 // Route::get('/donation', function () {
@@ -35,3 +37,11 @@ Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
 // Route::get('/expenses', function () {
 //     return view('expenses_list');
 // });
+
+Route::get('/donation', function () {
+    return view('donation_list');
+});
+
+Route::get('/expenses', function () {
+    return view('expenses_list');
+});

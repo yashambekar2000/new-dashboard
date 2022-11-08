@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/devoters-list.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Devoters list</title>
 </head>
 <body>
@@ -22,6 +23,9 @@
                  <h2> Devoters list</h2>
             </nav>
 
+            <div class="addUserBtnWrapper">
+                <a href="/devoters/devoter-form"><button class="btn btn-success">Add Devoter</button></a>
+            </div>
             <div class="tableDiv">
             <table>
                 <tr>
@@ -29,8 +33,8 @@
                     <th>Name</th>
                     <th>Address</th>
                     <th>Email</th>
-                    <th>Mobile</th>
-                    <th width="50px">Action</th>
+                    <th width="150px">Mobile</th>
+                    <th width="120px">Action</th>
                 </tr>
                 {{-- @foreach ($details1 as $item)
                 <tr>
@@ -47,25 +51,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info" >Update</button></td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -73,7 +61,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -81,7 +71,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -89,7 +81,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -97,7 +91,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -105,7 +101,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -113,7 +111,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -121,7 +121,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -129,7 +131,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -137,7 +141,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -145,55 +151,9 @@
                     <td>karvenagar pune</td>
                     <td>abcd@efg.com</td>
                     <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn btn-info">Update</button></td>
+                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
+                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    </td>
                 </tr>
                 
 

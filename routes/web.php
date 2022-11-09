@@ -44,7 +44,7 @@ Route::post( '/', [LoginController::class , 'checklogin']);
 Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
 Route::get( '/expenses', [DashbordController::class , 'expenseList']);
 Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
-
+Route::get( '/dashboard', [DashbordController::class , 'dashboardHome']);
 
 //  *****************for dashboard devoters*******************
 Route::get( '/devoters', [DashbordController::class , 'devotersList']);

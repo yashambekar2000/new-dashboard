@@ -51,6 +51,6 @@ Route::get( '/devoters', [DashbordController::class , 'devotersList']);
 Route::get( '/devoters/devoter-form', [DashbordController::class , 'sendForm']);
 Route::post( '/devoters/devoter-form', [DashbordController::class , 'addDevoter']);
 Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
-Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
+Route::post( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
 Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
 Route::get( '/users' , [DashbordController::class , 'showUsers']);

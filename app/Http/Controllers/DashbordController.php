@@ -16,12 +16,6 @@ function dashboardHome(){
     return view('dashboard_home');
 }
 
-//  ***************************to send devoters list**************
-    public function devotersList()
-    {
-       
-      return view('dashboard_home');
-    }
 
 //-----------------------------Getting Devoters list---------------------------------------
     public function devoter(){

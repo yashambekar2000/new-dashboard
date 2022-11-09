@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/expenses-list.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+
 
     <title>Expenses</title>
 </head>
@@ -31,14 +33,14 @@
             <form class="addExpense" action="/expenses" method="post">
                 {{csrf_field()}}
                 <input type="text" name="description" required class="form-control form-control-lg" placeholder="Expense Description">
-                <span>
+                <span style="color: red">
                     @error('description')
                     {{$message}}
                     @enderror
                   </span>
 
                 <input class="form-control" name="amount" id="addAmount" required type="number" placeholder="Amount ₹">
-                <span>
+                <span style="color: red">
                     @error('amount')
                     {{$message}}
                     @enderror

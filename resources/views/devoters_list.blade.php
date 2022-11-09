@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/devoters-list.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Devoters list</title>
 </head>
@@ -55,7 +56,7 @@
                        
                         <a href="/devoter/{{$id}}"><button class="btn editBtn" ><i class="fa fa-edit"></i></button></a>
                         
-                       <a href="/devoter-delete/{{$id}}" ><button class="btn deleteBtn"><i class="fa fa-trash"></i></button></a> 
+                       <button class="btn deleteBtn" onclick="conformDelete('delete','{{$id}}')" value="{{$id}}"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
                 @endforeach
@@ -65,11 +66,38 @@
                     </td> </tr>
                 @endif
                 
+                <div class="conformMsgWrapper" id="conformMsgWrapper">
+                    <div class="conformMsg">
+                        <p>Are you Sure ?</p>
+                        <div class="conformMsgBtnsDiv">     
+                            <button class="btn btn-success" onclick="redirectToDelete()" type="submit">Delete</button>
+                           <div class="btn btn-danger" onclick="conformDelete('cancel')">Cancel</div>
+                        </div>
+                    </div>
+                </div>
             </table>
             </div>
         </main>
     </div>
 
+
+    <script>
+        let getId;
+        function conformDelete(value,id){
+            let conformMsg = document.getElementById('conformMsgWrapper');
+            getId=id;
+            console.log(id)
+            if(value == 'delete' ){
+                conformMsg.style.display="flex";
+            }
+            else{
+                conformMsg.style.display="none";
+            }
+        }
+        function redirectToDelete(){
+            window.location.href = `${window.location.origin}/devoter-delete/${getId}`;
+        }
+    </script>
    {{-- message after performing action  --}}
 
    @if (session()->has('updatesuccess'))

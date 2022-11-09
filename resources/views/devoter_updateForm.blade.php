@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/devoter-form.css">
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+
     <title>Devoter form</title>
 </head>
 <body>
@@ -22,45 +24,48 @@
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>
             <input type="text" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" value="{{$editData['name']}}">
+            <span style="color: red">
+                @error('name')
+                {{$message}}
+                @enderror
+              </span>
           </div>
-          <span>
-            @error('name')
-            {{$message}}
-            @enderror
-          </span>
+          
 
 
           <div class="form-row">
             <div class="form-group col-md-5">
               <label for="inputEmail4">Email</label>
               <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email" value="{{$editData['email']}}">
+              <span style="color: red">
+                @error('email')
+                {{$message}}
+                @enderror
+              </span>
             </div>
             <div class="form-group col-md-4 mobile" >
                 <label for="inputEmail4">Mobile no.</label>
-                <input type="number" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required value="{{$editData['mobile']}}">
+                <input type="tel" pattern="[0-9]{10}" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required value="{{$editData['mobile']}}">
+                <span style="color: red">
+                    @error('mobile')
+                    {{$message}}
+                    @enderror
+                  </span>
             </div>
           </div>
-          <span>
-            @error('email')
-            {{$message}}
-            @enderror
-          </span>
-          <span>
-            @error('mobile')
-            {{$message}}
-            @enderror
-          </span>
+          
+         
 
           <div class="form-group col-md-10">
             <label for="inputAddress">Address</label>
             <input type="text" name="address" placeholder="Address" class="form-control" id="inputAddress" value="{{$editData['address']}}">
+            <span style="color: red">
+                @error('address')
+                {{$message}}
+                @enderror
+              </span>    
           </div>
-          <span>
-            @error('address')
-            {{$message}}
-            @enderror
-          </span>
-
+         
           <div class="btn btn-success" onclick="conformAddExpense('add')">Update</div>
           <a href="../devoters"><div class="btn btn-outline-secondary">Cancel</div></a>
 

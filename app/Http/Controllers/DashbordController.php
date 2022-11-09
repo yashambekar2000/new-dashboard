@@ -10,8 +10,14 @@ use Auth;
 
 class DashbordController extends Controller
 {
-    //--------------------------to desplay the dashbord after login--------------------------
-    public function index()
+
+        // *****************after login*******************
+function dashboardHome(){
+    return view('dashboard_home');
+}
+
+//  ***************************to send devoters list**************
+    public function devotersList()
     {
        
       return view('dashboard_home');
@@ -20,65 +26,19 @@ class DashbordController extends Controller
 //-----------------------------Getting Devoters list---------------------------------------
     public function devoter(){
         $firebase = (new Factory)
-        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/devotersList');
+            ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+            ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/donorData');
+ 
+        $database = $firebase->createDatabase();
+ 
+        $details = $database->getReference('/');
+        // $details=$details->getvalue();
 
-    $database = $firebase->createDatabase();
+         $details=$details->getvalue() ;
+         
 
-    $details = $database->getReference('/');
-    // $details=$details->getvalue();
-
-     $details=$details->getvalue() ;
-     return view('devoters_list', ['details1'=>$details]);
+         return view('devoters_list', ['details1'=>$details]);
     }
-
-
-//------------------------------Save Devoter-----------------------------------
-    function addDevoter(Request $request){
-      
-        $this->validate($request , [
-            'name' => 'required|string',
-            'email'  => 'required|email',
-            'mobile' => 'required|numeric|size:10',
-            'address' => 'required|string'
-         ]);
-
-
-        $firebase = (new Factory)
-        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/devotersList');
-
-    $database = $firebase->createDatabase();
-
-    $details = $database->getReference('/');
-
-    $saveData = [
-        'name' => $request->name,
-        'email'=>$request->email,
-        'mobile'=>$request->mobile,
-        'address'=>$request->address,
-    ];
-
-    // $saveData = [
-    //     'name' => "Abcd",
-    //     'email'=>"abcd@d.com",
-    //     'mobile'=>1234567890,
-    //     'address'=>"asdfghjkl",
-    // ];
-    
-    $saveRef = $database->getReference('/')->push($saveData);
-
-    if($saveRef){
-        return redirect('devoters/devoter-form')->with('status','added successfully');
-
-    }else{
-        return redirect('devoters/devoter-form')->with('status','Not added'); 
-    }
-
-    }
-
-
-
 
 
 
@@ -88,14 +48,14 @@ function update($id){
     $key = $id;
     $firebase = (new Factory)
     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/devotersList');
+    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/donorData');
 
 $database = $firebase->createDatabase();
 
-$editData = $database->getReference('/')->getchild($key)->getvalue();
+$editData = $database->getReference("/$key")->getvalue();
 
 if($editData){
-    return view('testUpdate' , compact('editData','key'));
+    return view('update' , compact('editData','key'));
 }
 else{
     return redirect('testUpdate')->with('status','user not found');
@@ -118,7 +78,7 @@ function updateDetails(Request $request,$id){
 
     $firebase = (new Factory)
     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/devotersList');
+    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/donorData');
 
 $database = $firebase->createDatabase();
 
@@ -127,33 +87,34 @@ $updateData = [
     'address' => $request->address,
     'mobile' => $request->mobile,
     'email' => $request->email,
+    'amount'=>$request->amount,
 ];
 
-$res_updated = $database->getReference("/$key")->update($updateData);
+$res_updated = $database->getReference('/'.$key)->update($updateData);
 
 if($res_updated){
-    return redirect('/devoters')->with('status' , 'details updated successfully');
+    return redirect('devoter_list')->with('status' , 'details updated successfully');
 }else{
-    return redirect('/devoters')->with('status' , 'details not updated');
+    return redirect('devoter_list')->with('status' , 'details not updated');
 }
 
 }
 
 
 //--------------------Delete Devotee Details---------------------------------
-function delete($id){
+function delete($key){
     $firebase = (new Factory)
     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/devotersList');
+    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/donorData');
 
 $database = $firebase->createDatabase();
 $key = $id;
-$deleteData = $database->getReference("/$key")->remove();
+$deleteData = $database->getReference('/'.$key)->remove();
 
 if($deleteData){
-    return redirect('/devoters')->with('status' , 'details Deleted successfully');
+    return redirect('devoter_list')->with('status' , 'details Deleted successfully');
 }else{
-    return redirect('/devoters')->with('status' , 'details not Delete');
+    return redirect('devoter_list')->with('status' , 'details not Delete');
 }
 }
 
@@ -216,20 +177,24 @@ if($deleteData){
         
             $database = $firebase->createDatabase();
         
-           
+            $ref_Tablename = 'expensesList';
             $postData = [
                 'description' => $request->description,
                 'amount'=>$request->amount,
             ];
-            $postRef = $database->getReference('/')->push($postData);
+            $postRef = $database->getReference($ref_Tablename)->push($postData);
 
             if($postRef){
-                return redirect('expenses')->with('status','added successfully');
+                return redirect('expenses')->with('expensesuccess' , true);
 
             }else{
-                return redirect('expenses')->with('status','Not added'); 
+                return redirect('expenses')->with('expensefail' , true); 
             }
          
         }
- 
+
+        // ******************to send users list***************
+        function showUsers(){
+            return view('user_management');
+        }
 }

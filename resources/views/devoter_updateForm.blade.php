@@ -17,11 +17,11 @@
   <main>
 
 
-    <form action= "/devoters/devoter-form" type="POST">
-
+    <form action= "/devoters/devoter-update/{{$id}}" method="POST">
+        @csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>
-            <input type="text" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" >
+            <input type="text" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" value="{{$editData['name']}}">
           </div>
           <span>
             @error('name')
@@ -33,11 +33,11 @@
           <div class="form-row">
             <div class="form-group col-md-5">
               <label for="inputEmail4">Email</label>
-              <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email" >
+              <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email" value="{{$editData['email']}}">
             </div>
             <div class="form-group col-md-4 mobile" >
                 <label for="inputEmail4">Mobile no.</label>
-                <input type="number" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required >
+                <input type="number" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required value="{{$editData['mobile']}}">
             </div>
           </div>
           <span>
@@ -53,7 +53,7 @@
 
           <div class="form-group col-md-10">
             <label for="inputAddress">Address</label>
-            <input type="text" name="address" placeholder="Address" class="form-control" id="inputAddress" >
+            <input type="text" name="address" placeholder="Address" class="form-control" id="inputAddress" value="{{$editData['address']}}">
           </div>
           <span>
             @error('address')
@@ -61,7 +61,7 @@
             @enderror
           </span>
 
-          <div class="btn btn-success" onclick="conformAddExpense('add')">Add</div>
+          <div class="btn btn-success" onclick="conformAddExpense('add')">Update</div>
           <a href="../devoters"><div class="btn btn-outline-secondary">Cancel</div></a>
 
 
@@ -69,7 +69,7 @@
               <div class="conformMsg">
                   <p>Are you Sure ?</p>
                   <div class="conformMsgBtnsDiv">     
-                     <button class="btn btn-success" type="submit">Add</button> 
+                     <button class="btn btn-success" type="submit">Update</button> 
 
                      <div class="btn btn-danger" onclick="conformAddExpense('cancel')">Cancel</div>
                   </div>

@@ -38,17 +38,18 @@ use views\login;
 //     return view('expenses_list');
 // });
 
+// **************for login********************
 Route::get( '/', [LoginController::class , 'index1']);
 Route::post( '/', [LoginController::class , 'checklogin']);
-Route::get( '/devoters', [DashbordController::class , 'devoter']);
 Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
 Route::get( '/expenses', [DashbordController::class , 'expenseList']);
 Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
+
+
+//  *****************for dashboard devoters*******************
+Route::get( '/devoters', [DashbordController::class , 'devotersList']);
+Route::get( '/devoters/devoter-form', [DashbordController::class , 'sendForm']);
+Route::post( '/devoters/devoter-form', [DashbordController::class , 'addDevoter']);
 Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
 Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
 Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
-Route::post( '/addDevoter', [DashbordController::class , 'addDevoter']);
-
-Route::get( '/devoters/devoter-form', function(){
-    return view('devoter_form');
-});

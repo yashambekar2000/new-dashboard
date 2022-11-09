@@ -36,131 +36,61 @@
                     <th width="150px">Mobile</th>
                     <th width="120px">Action</th>
                 </tr>
-                {{-- @foreach ($details1 as $item)
+
+                @php
+                    $Serialno = 1;
+                @endphp
+
+                @if ($details1 != null)
+                @foreach ($details1 as $key=>$item)
                 <tr>
+                    <td>
+                       {{$Serialno++;}}
+                    </td>
                     <td>{{$item['name']}}</td>
                     <td>{{$item['address']}}</td>
                     <td>{{$item['email']}}</td>
                     <td>{{$item['mobile']}}</td>
-                    <td class="amount">+ {{$item['amount']}} ₹</td>
-                </tr>
-                @endforeach --}}
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
+                    <td>
+                       
+                        <a href="/devoter/{{$key}}"><button class="btn editBtn" ><i class="fa fa-edit"></i></button></a>
+                        
+                       <a href="/devoter-delete/{{$key}}" ><button class="btn deleteBtn"><i class="fa fa-trash"></i></button></a> 
                     </td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Raj Ingale</td>
-                    <td>karvenagar pune</td>
-                    <td>abcd@efg.com</td>
-                    <td>1234567890</td>
-                    <td><button class="btn editBtn" ><i class="fa fa-edit"></i></button>
-                        <button class="btn deleteBtn"><i class="fa fa-trash"></i></button>
-                    </td>
-                </tr>
+                @endforeach
+                @else
+                    <tr ><td colspan="6" style="text-align: center;font-size: 20px">
+                        No Data to show
+                    </td> </tr>
+                @endif
                 
-
             </table>
             </div>
         </main>
     </div>
-   
+
+   {{-- message after performing action  --}}
+
+   @if (session()->has('updatesuccess'))
+   <script >
+       alert("Details Updated Successfully !")
+   </script>
+   @endif
+   @if (session()->has('updatefail'))
+   <script defer>
+       alert("Failed To Update ! Please Try again Later")
+   </script>
+   @endif
+   @if (session()->has('deletesuccess'))
+   <script >
+       alert("Deleted Successfully !")
+   </script>
+   @endif
+   @if (session()->has('deletefail'))
+   <script defer>
+       alert("Failed To Delete ! Please Try again Later")
+   </script>
+   @endif
 </body>
 </html>

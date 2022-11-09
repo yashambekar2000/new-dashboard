@@ -91,17 +91,17 @@ if($saveRef){
  //---------------------Update Devotee Details--------------------------------
 function update($id){
 
-    $key = $id;
+    
     $firebase = (new Factory)
     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
     ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
 
 $database = $firebase->createDatabase();
 
-$editData = $database->getReference("/devotersList/$key")->getvalue();
+$editData = $database->getReference("/devotersList/$id")->getvalue();
 
 if($editData){
-    return view('devoter_updateForm' , compact('editData','key'));
+    return view('devoter_updateForm' , compact('editData','id'));
 }
 else{
     return redirect('devoter/{id}')->with('status','user not found');
@@ -136,7 +136,7 @@ $updateData = [
     'amount'=>$request->amount,
 ];
 
-$res_updated = $database->getReference('/devotersList'.$key)->update($updateData);
+$res_updated = $database->getReference('/devotersList'.$id)->update($updateData);
 
 if($res_updated){
     return redirect('devoters')->with('status' , 'details updated successfully');
@@ -148,14 +148,14 @@ if($res_updated){
 
 
 //--------------------Delete Devotee Details---------------------------------
-function delete($key){
+function delete($id){
     $firebase = (new Factory)
     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
     ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
 
 $database = $firebase->createDatabase();
-$key = $id;
-$deleteData = $database->getReference('/devotersList'.$key)->remove();
+
+$deleteData = $database->getReference('/devotersList'.$id)->remove();
 
 if($deleteData){
     return redirect('devoters')->with('status' , 'details Deleted successfully');

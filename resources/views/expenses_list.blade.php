@@ -69,15 +69,17 @@
                         <th>Expense Description</th>
                         <th width="120px">Amount</th>
                     </tr>
-                    {{-- @foreach ($details1 as $item)
-                    <tr>
-                        <td>{{$item['name']}}</td>
-                        <td>{{$item['address']}}</td>
-                        <td>{{$item['email']}}</td>
-                        <td>{{$item['mobile']}}</td>
-                        <td class="amount">+ {{$item['amount']}} ₹</td>
+                    <!-- {{print_r($details1)}} -->
+               {{--  @foreach( $details1 as $item )
+                    
+                 <tr>
+                        <td>1</td>
+                        <td>date</td>
+                        <td class="amount">+ {{ $item['amount'] }} ₹</td>
+                        <td>{{ $item['description'] }}</td>
+                    
                     </tr>
-                    @endforeach --}}
+                    @endforeach--}}
                     <tr>
                         <td>1</td>
                         <td>11-nov-2022</td>

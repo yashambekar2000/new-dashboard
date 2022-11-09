@@ -17,8 +17,8 @@
   <main>
 
 
-    <form action= "/devoters/devoter-form" type="POST">
-
+    <form action= "/devoters/devoter-form" method="POST">
+@csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>
             <input type="text" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" >

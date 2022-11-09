@@ -13,6 +13,9 @@ class DashbordController extends Controller
 
         // *****************after login*******************
 function dashboardHome(){
+    if(Auth::guest()){
+return redirect('/');
+    }
     return view('dashboard_home');
 }
 
@@ -48,7 +51,7 @@ function addDevoter(Request $request){
     $this->validate($request , [
         'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|min:11|numeric',
+        'mobile' => 'required|regex:/^[0-9]{10}$/',
         'address' => 'required|string'
      ]);
 
@@ -104,19 +107,19 @@ if($editData){
     return view('devoter_updateForm' , compact('editData','id'));
 }
 else{
-    return redirect('devoter/{id}')->with('status','user not found');
+    return redirect('devoter/{id}')->with('notfound', true);
 }
 
 }
 
 
 //------------------------saving the updated details-----------------------------
-function updateDetails(Request $request,$id){
+function updateDetails(Request $request , $id){
 
     $this->validate($request , [
-        'name' => 'required|string',
+        'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|numeric|size:10',
+        'mobile' => 'required|integer|size:10',
         'address' => 'required|string'
      ]);
 
@@ -133,15 +136,14 @@ $updateData = [
     'address' => $request->address,
     'mobile' => $request->mobile,
     'email' => $request->email,
-    'amount'=>$request->amount,
 ];
 
-$res_updated = $database->getReference('/devotersList'.$id)->update($updateData);
+$res_updated = $database->getReference("/devotersList/$id")->update($updateData);
 
 if($res_updated){
-    return redirect('devoters')->with('status' , 'details updated successfully');
+    return redirect('devoters')->with('addsuccess' , true);
 }else{
-    return redirect('devoter/{id}')->with('status' , 'details not updated');
+    return redirect('devoter/{id}')->with('addfail' , true);
 }
 
 }
@@ -155,12 +157,12 @@ function delete($id){
 
 $database = $firebase->createDatabase();
 
-$deleteData = $database->getReference('/devotersList'.$id)->remove();
+$deleteData = $database->getReference("/devotersList/$id")->remove();
 
 if($deleteData){
-    return redirect('devoters')->with('status' , 'details Deleted successfully');
+    return redirect('devoters')->with('deletesuccess' , true);
 }else{
-    return redirect('devoters')->with('status' , 'details not Delete');
+    return redirect('devoters')->with('deletefail' , true);
 }
 }
 

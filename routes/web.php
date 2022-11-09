@@ -40,9 +40,15 @@ use views\login;
 
 Route::get( '/', [LoginController::class , 'index1']);
 Route::post( '/', [LoginController::class , 'checklogin']);
+Route::get( '/devoters', [DashbordController::class , 'devoter']);
 Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
 Route::get( '/expenses', [DashbordController::class , 'expenseList']);
 Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
 Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
 Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
 Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
+Route::post( '/addDevoter', [DashbordController::class , 'addDevoter']);
+
+Route::get( '/devoters/devoter-form', function(){
+    return view('devoter_form');
+});

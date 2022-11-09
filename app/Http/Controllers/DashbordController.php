@@ -13,6 +13,9 @@ class DashbordController extends Controller
 
         // *****************after login*******************
 function dashboardHome(){
+    if(Auth::guest()){
+return redirect('/');
+    }
     return view('dashboard_home');
 }
 
@@ -48,7 +51,7 @@ function addDevoter(Request $request){
     $this->validate($request , [
         'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|min:11|numeric',
+        'mobile' => 'required|regex:/^[0-9]{10}$/',
         'address' => 'required|string'
      ]);
 
@@ -116,7 +119,7 @@ function updateDetails(Request $request , $id){
     $this->validate($request , [
         'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|min:11|numeric',
+        'mobile' => 'required|integer|size:10',
         'address' => 'required|string'
      ]);
 

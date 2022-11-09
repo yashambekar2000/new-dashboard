@@ -14,7 +14,7 @@
         <div id="sidebar" class="">
 
             <div class="sidebar-header">
-                <a href="/"><h3>DashBoard</h3></a>
+                <a href="/dashboard"><h3>DashBoard</h3></a>
                 <div onclick="sidebarFun()">
                 <div class="menuIcon"></div>
                 <div class="menuIcon"></div>

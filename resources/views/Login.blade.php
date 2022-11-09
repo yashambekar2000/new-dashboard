@@ -214,6 +214,8 @@ width:100%;
 </button>	
 </form>
 </div>
+<span style="color:red;">@error('status'){{$message}}@enderror</span>
+
 
 
 

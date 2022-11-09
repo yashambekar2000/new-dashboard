@@ -42,7 +42,7 @@
                 @endphp
 
                 @if ($details1 != null)
-                @foreach ($details1 as $key=>$item)
+                @foreach ($details1 as $id=>$item)
                 <tr>
                     <td>
                        {{$Serialno++;}}
@@ -53,9 +53,9 @@
                     <td>{{$item['mobile']}}</td>
                     <td>
                        
-                        <a href="/devoter/{{$key}}"><button class="btn editBtn" ><i class="fa fa-edit"></i></button></a>
+                        <a href="/devoter/{{$id}}"><button class="btn editBtn" ><i class="fa fa-edit"></i></button></a>
                         
-                       <a href="/devoter-delete/{{$key}}" ><button class="btn deleteBtn"><i class="fa fa-trash"></i></button></a> 
+                       <a href="/devoter-delete/{{$id}}" ><button class="btn deleteBtn"><i class="fa fa-trash"></i></button></a> 
                     </td>
                 </tr>
                 @endforeach

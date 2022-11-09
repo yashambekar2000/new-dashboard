@@ -44,13 +44,13 @@ Route::post( '/', [LoginController::class , 'checklogin']);
 Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
 Route::get( '/expenses', [DashbordController::class , 'expenseList']);
 Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
-
+Route::get( '/dashboard', [DashbordController::class , 'dashboardHome']);
 
 //  *****************for dashboard devoters*******************
 Route::get( '/devoters', [DashbordController::class , 'devotersList']);
 Route::get( '/devoters/devoter-form', [DashbordController::class , 'sendForm']);
 Route::post( '/devoters/devoter-form', [DashbordController::class , 'addDevoter']);
 Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
-Route::put( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
+Route::post( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
 Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
 Route::get( '/users' , [DashbordController::class , 'showUsers']);

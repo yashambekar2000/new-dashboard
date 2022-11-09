@@ -17,7 +17,7 @@
   <main>
 
 
-    <form action= "/devoters/devoter-update/{{$id}}" method="POST">
+    <form action= "/devoter-update/{{$id}}" method="POST">
         @csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>

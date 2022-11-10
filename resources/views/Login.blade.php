@@ -179,6 +179,12 @@ width:100%;
 
 <div class="log">
 
+<!-- <script>
+if(session('status')=="true"){
+window.alert("Login First");
+}
+</script> -->
+
 @if($message = Session::get('error'))
 <div class="alert alert-danger alert-block">
     <button class="close" type="button" data-dismiss="alert">X</button>
@@ -197,7 +203,9 @@ width:100%;
 </div>
 @endif
 
-
+@if(session('status'))
+<h2 class="alert alert-danger">{{session('status')}}</h2>
+@endif
 <form method="post" action="/">
     {{csrf_field() }}
     <div class="username">
@@ -216,7 +224,6 @@ width:100%;
 </button>	
 </form>
 </div>
-<span style="color:red;">@error('status'){{$message}}@enderror</span>
 
 
 

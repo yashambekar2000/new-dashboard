@@ -41,16 +41,29 @@ use views\login;
 // **************for login********************
 Route::get( '/', [LoginController::class , 'index1']);
 Route::post( '/', [LoginController::class , 'checklogin']);
-Route::post( '/expenses', [DashbordController::class , 'expenseAdd']);
-Route::get( '/expenses', [DashbordController::class , 'expenseList']);
-Route::get( '/donationlist', [DashbordController::class , 'donationlist']);
-Route::get( '/dashboard', [DashbordController::class , 'dashboardHome']);
+
+//*********************Secured by Middleware********************* 
+Route::post( '/expenses', [DashbordController::class , 'expenseAdd'])->middleware('guard');
+Route::get( '/expenses', [DashbordController::class , 'expenseList'])->middleware('guard');
+Route::get( '/donationlist', [DashbordController::class , 'donationlist'])->middleware('guard');
+Route::get( '/dashboard', [DashbordController::class , 'dashboardHome'])->middleware('guard');
 
 //  *****************for dashboard devoters*******************
-Route::get( '/devoters', [DashbordController::class , 'devotersList']);
-Route::get( '/devoters/devoter-form', [DashbordController::class , 'sendForm']);
-Route::post( '/devoters/devoter-form', [DashbordController::class , 'addDevoter']);
-Route::get( '/devoter/{id}', [DashbordController::class , 'update']);
-Route::post( '/devoter-update/{id}', [DashbordController::class , 'updateDetails']);
-Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete']);
-Route::get( '/users' , [DashbordController::class , 'showUsers']);
+Route::get( '/devoters', [DashbordController::class , 'devotersList'])->middleware('guard');
+Route::get( '/devoters/devoter-form', [DashbordController::class , 'sendForm'])->middleware('guard');
+Route::post( '/devoters/devoter-form', [DashbordController::class , 'addDevoter'])->middleware('guard');
+Route::get( '/devoter/{id}', [DashbordController::class , 'update'])->middleware('guard');
+Route::post( '/devoter-update/{id}', [DashbordController::class , 'updateDetails'])->middleware('guard');
+Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete'])->middleware('guard');
+
+//*************************User Management******************************** */
+Route::get( '/users' , [DashbordController::class , 'showUsers'])->middleware('guard');
+
+Route::post( '/addusers' , function(){
+    return view('Add_user');
+})->middleware('guard');
+
+Route::post( '/saveuser' , [DashbordController::class , 'saveUser'])->middleware('guard');
+Route::get( '/update-user/{id}' , [DashbordController::class , 'updateUser'])->middleware('guard');
+Route::post( '/update-user-add/{id}' , [DashbordController::class , 'addUpdateUser'])->middleware('guard');
+Route::get( '/devoter-delete/{id}', [DashbordController::class , 'deleteUser'])->middleware('guard');

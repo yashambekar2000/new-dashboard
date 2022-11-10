@@ -11,6 +11,8 @@ use Auth;
 
 class LoginController extends Controller
 {
+
+    //---------------------------to show login page---------------------------
     function index1(){
         return view('Login');
     }
@@ -28,38 +30,62 @@ class LoginController extends Controller
            'password' => 'required|alphaNum|min:7'
         ]);
 
+       
+
+        // $session = DB::table('users')->where('email', $email)->where('password', $password)->get();
+        //     if(count($session)>0){
+        //         $request->session()->put('id',$session[0]->id);
+        //         $request->session()->put('name',$session[0]->name);
+        //         $request->session()->put('email',$session[0]->email);
+        //         return redirect('/dashboard');
+                
+        //     }
+        //     else{
+        //         return redirect('/')->with('status',"Email or password does not match");
+        //     }
+
+  
         $email=$request->email;
         $password=$request->password;
 
-        $session = DB::table('users')->where('email', $email)->where('password', $password)->get();
-            if(count($session)>0){
-                $request->session()->put('id',$session[0]->id);
-                $request->session()->put('name',$session[0]->name);
-                $request->session()->put('email',$session[0]->email);
-                return redirect('/dashboard');
-        
+        //   ----------Connect with database-----------------
+    $firebase = (new Factory)
+    ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+
+
+    // $this->auth = $factory->createAuth();
+$database = $firebase->createDatabase();
+
+ // ----------fetching data from database------------------------
+ $details = $database->getReference('/users');
+
+
+ // ------------convert fetched data into an array---------------
+  $details=$details->getvalue() ;
+
+//------------------to authenticate email and password--------------------
+foreach($details as $id=>$detail){
+    if( $detail['email']==($email)){
+            if($detail['password']==($password)){
+             
+                    $request->session()->put('id' , $id);
+                    $request->session()->put('name', $detail['name']);
+                    $request->session()->put('email', $detail['email']);
+                    return redirect('/dashboard');
             }
             else{
                 return redirect('/')->with('status',"Email or password does not match");
             }
+}
+else{
+    return redirect('/')->with('status',"Email or password does not match");
+}
+}
 
 
 
-//    ----------Connect with database-----------------
-//     $firebase = (new Factory)
-//     ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-//     ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com/login');
 
-
-//     // $this->auth = $factory->createAuth();
-// $database = $firebase->createDatabase();
-
-// // ----------fetching data from database------------------------
-// $details = $database->getReference('/');
-
-
-// // ------------convert fetched data into an array---------------
-//  $details=$details->getvalue() ;
 
 
 // for($i=0;$i<sizeOf($details);$i++){
@@ -73,6 +99,7 @@ class LoginController extends Controller
 //     return back()->withErrors(['Credentials are incorrect']);  
 //    }
 // }
+
      }
 
 }

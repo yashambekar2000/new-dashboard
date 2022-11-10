@@ -13,9 +13,12 @@ class DashbordController extends Controller
 
         // *****************after login*******************
 function dashboardHome(){
-    if(Auth::guest()){
-return redirect('/');
-    }
+   
+   //##################  aunthenticate http requests   ######################
+//     if(Auth::guest()){
+// return redirect('/');
+//     }
+   
     return view('dashboard_home');
 }
 
@@ -119,7 +122,7 @@ function updateDetails(Request $request , $id){
     $this->validate($request , [
         'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|integer|size:10',
+        'mobile' => 'required|regex:/^[0-9]{10}$/',
         'address' => 'required|string'
      ]);
 
@@ -141,9 +144,9 @@ $updateData = [
 $res_updated = $database->getReference("/devotersList/$id")->update($updateData);
 
 if($res_updated){
-    return redirect('devoters')->with('addsuccess' , true);
+    return redirect('devoters')->with('updatesuccess' , true);
 }else{
-    return redirect('devoter/{id}')->with('addfail' , true);
+    return redirect('devoter/{id}')->with('updatefail' , true);
 }
 
 }
@@ -215,7 +218,7 @@ if($deleteData){
 
             $this->validate($request , [
                 'description' => 'required|string|max:100',
-                'amount' => 'required|numeric'
+                'amount' => 'required|numeric|min:1',
              ]);
 
 
@@ -225,10 +228,11 @@ if($deleteData){
         
             $database = $firebase->createDatabase();
         
-         
+         $current_date = date('d-m-Y');
             $postData = [
                 'description' => $request->description,
                 'amount'=>$request->amount,
+                'date' => $current_date,
             ];
             $postRef = $database->getReference('/expensesList')->push($postData);
 
@@ -241,8 +245,201 @@ if($deleteData){
          
         }
 
-        // ******************to send users list***************
+      
+      
+        // ******************to show users list*****************************
         function showUsers(){
-            return view('user_management');
+            $firebase = (new Factory)
+            ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+            ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+        
+        $database = $firebase->createDatabase();
+        
+        $details = $database->getReference('/users');
+        // $details=$details->getvalue();
+        
+         $userList=$details->getvalue() ;
+         
+         return view('user_management' , ['userList'=> $userList ]);
+      
         }
+
+       
+       
+        //*************************** To Save The New User**************************** */
+function saveUser(Request $request){
+  
+  //*************************check Admin Password***************** */
+             $adminPassword=$request->adminPassword;
+
+                     //   ----------Connect with database-----------------
+                        $firebase = (new Factory)
+                        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+  
+  
+                     // $this->auth = $factory->createAuth();
+                    $database = $firebase->createDatabase();
+  
+                     // ----------fetching data from database------------------------
+                     $details = $database->getReference('/users');
+
+                        $details=$details->getvalue();
+
+                foreach($details as $id=>$detail){
+                     if( $detail['password']==($adminPassword)){
+    
+                       $this->validate($request , [
+                           'name' => 'required|max:120|string',
+                           'email'  => 'required|email',
+                           'mobile' => 'required|regex:/^[0-9]{10}$/',
+                           'password' => 'string|min:7|confirmed|required_with:password_confirmed',
+                        ]);
+
+
+                        $firebase = (new Factory)
+                        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+
+                         $database = $firebase->createDatabase();
+
+
+                             $postData = [
+                            'name' => $request->name,
+                            'email'  => $request->email,
+                            'mobile' => $request->mobile,
+                            'password' => $request->password
+                             ];
+             $postRef = $database->getReference('/users')->push($postData);
+
+            if($postRef){
+                 return redirect('Add_user')->with('addsuccess' , true);
+                 }
+            else{
+                 return redirect('Add_user')->with('addfail' , true); 
+                }
+  
+        }
+        else{
+            return redirect('Add_user')->with('status' , 'Admin Password Does not Matches.');
+            }
+    }
+}
+
+//*************************** update User *********************************/
+function updateUser(Request $request , $id){
+
+                        //*************************check Admin Password***************** */
+                                $adminPassword=$request->adminPassword;
+
+                        //   ----------Connect with database-----------------
+                                $firebase = (new Factory)
+                                ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                                ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+                             $database = $firebase->createDatabase();
+  
+                         // ----------fetching data from database------------------------
+                                 $details = $database->getReference('/users');
+
+                                 $details=$details->getvalue();
+
+   
+                 foreach($details as $id=>$detail){
+                     if( $detail['password']==($adminPassword)){
+
+                             $firebase = (new Factory)
+                                ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                                ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+                                     $database = $firebase->createDatabase();
+                                     $editUser = $database->getReference("/users/$id")->getvalue();
+
+                         if($editUser){
+                                    return view('Update_user' , compact('editUser','id'));
+                                     }
+                             else{
+                                    return redirect('users')->with('notfound', true);
+                                }
+                 }
+         else{
+                 return redirect('users')->with('status' , 'Admin Password Does not Matches.');
+             }
+    }
+}
+
+
+//********************************* Add Updated Data Of User ******************************* */
+function addUpdateUser(Request $request , $id){
+                         $this->validate($request , [
+                                'name' => 'required|max:120|string',
+                                'email'  => 'required|email',
+                                'mobile' => 'required|regex:/^[0-9]{10}$/',
+                                'password' => 'required|string'
+                             ]);
+
+
+
+                        $firebase = (new Factory)
+                            ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                            ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+                                $database = $firebase->createDatabase();
+                                    
+                    $updateData = [
+                        'email' => $request->email,
+                        'name' => $request->name,
+                        'password' => $request->password,
+                        'mobile' => $request->mobile,
+                        ];
+
+                    $user_updated = $database->getReference("/users/$id")->update($updateData);
+
+            if($user_updated){
+                        return redirect('users')->with('updatesuccess' , true);
+                        }
+                        else{
+                             return redirect('Update_user')->with('updatefail' , true);
+                            }
+     }
+
+
+     //************************ Delete User ********************************* */
+function deleteUser(Request $request , $id){
+  
+                 //*************************check Admin Password***************** */
+                            $adminPassword=$request->adminPassword;
+
+                        //   ----------Connect with database-----------------
+                    $firebase = (new Factory)
+                        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+                            $database = $firebase->createDatabase();
+
+                        // ----------fetching data from database------------------------
+                            $details = $database->getReference('/users');
+                            $details=$details->getvalue();
+
+                            foreach($details as $id=>$detail){
+                                    if( $detail['password']==($adminPassword)){
+
+                                            $firebase = (new Factory)
+                                                ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                                                ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+
+                                    $database = $firebase->createDatabase();
+                                    $deleteUser = $database->getReference("/users/$id")->remove();
+
+                        if($deleteUser){
+                                    return redirect('users')->with('deletesuccess' , true);
+                                    }
+                                    else{
+                                        return redirect('users')->with('deletefail' , true);
+                                        }
+                    }
+                     else{
+                        return redirect('users')->with('status' , 'Admin Password Does not Matches.'); 
+                        }
+
+            }
+}
+
+
 }

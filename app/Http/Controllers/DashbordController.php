@@ -119,7 +119,7 @@ function updateDetails(Request $request , $id){
     $this->validate($request , [
         'name' => 'required|max:120|string',
         'email'  => 'required|email',
-        'mobile' => 'required|integer|size:10',
+        'mobile' => 'required|regex:/^[0-9]{10}$/',
         'address' => 'required|string'
      ]);
 
@@ -141,9 +141,9 @@ $updateData = [
 $res_updated = $database->getReference("/devotersList/$id")->update($updateData);
 
 if($res_updated){
-    return redirect('devoters')->with('addsuccess' , true);
+    return redirect('devoters')->with('updatesuccess' , true);
 }else{
-    return redirect('devoter/{id}')->with('addfail' , true);
+    return redirect('devoter/{id}')->with('updatefail' , true);
 }
 
 }

@@ -25,9 +25,18 @@
                      <h2>Expenses list</h2>
             </nav>
 
+            @php
+            $Serialno = 1;
+            $totalAmount=0;
+            // to calculate the total amount-----------------------
+            foreach ($details1 as $item) {
+                $totalAmount = $item['amount']+$totalAmount;
+            };
+        @endphp
+
             <div class="expensesTotal">
                     <p>Expenses Total :</p>
-                    <p class="totalAmount">12000 ₹</p>
+                    <p class="totalAmount">{{$totalAmount}} ₹</p>
             </div>
 
             <form class="addExpense" action="/expenses" method="post">
@@ -39,7 +48,7 @@
                     @enderror
                   </span>
 
-                <input class="form-control" name="amount" id="addAmount" required type="number" placeholder="Amount ₹">
+                <input class="form-control" name="amount" min="1" id="addAmount" required type="number" placeholder="Amount ₹">
                 <span style="color: red">
                     @error('amount')
                     {{$message}}
@@ -53,8 +62,8 @@
                     <div class="conformMsg">
                         <p>Are you Sure ?</p>
                         <div class="conformMsgBtnsDiv">     
-                           <button class="btn btn-success" type="submit">Add</button> 
-                           <div class="btn btn-danger" onclick="conformAddExpense('cancel')">Cancel</div>
+                           <button class="btn btn-success" type="submit">Add Expense</button> 
+                           <div class="btn btn-danger cancelBtn"  onclick="conformAddExpense('cancel')">Cancel</div>
                         </div>
                     </div>
                 </div>
@@ -71,54 +80,42 @@
                         <th>Expense Description</th>
                         <th width="120px">Amount</th>
                     </tr>
-                    <!-- {{print_r($details1)}} -->
-               {{--  @foreach( $details1 as $item )
-                    
-                 <tr>
-                        <td>1</td>
-                        <td>date</td>
-                        <td class="amount">+ {{ $item['amount'] }} ₹</td>
+
+                    @php
+                    $Serialno = 1;
+                @endphp
+
+                @if ($details1 != null)
+                @foreach( $details1 as $item )
+                    <tr>
+                        <td>{{$Serialno++;}}</td>
+                        <td>{{ $item['date'] }}</td>
                         <td>{{ $item['description'] }}</td>
-                    
+                        <td class="amount">{{ $item['amount'] }} ₹</td>
                     </tr>
-                    @endforeach--}}
-                    <tr>
-                        <td>1</td>
-                        <td>11-nov-2022</td>
-                        <td>Raj Ingale</td>
-                        <td class="amount">501 ₹</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>11-nov-2022</td>
-                        <td>Raj Ingale</td>
-                        <td class="amount">501 ₹</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>11-nov-2022</td>
-                        <td>Raj Ingale</td>
-                        <td class="amount">501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>11-nov-2022</td>
-                        <td>Raj Ingale</td>
-                        <td class="amount">501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>11-nov-2022</td>
-                        <td>Raj Ingale</td>
-                        <td class="amount">501 ₹</td>
-                    </tr>
-                
+                    @endforeach
+                    @else
+                        <tr ><td colspan="6" style="text-align: center;font-size: 20px">
+                            No Data to show
+                        </td> </tr>
+                    @endif
                 </table>
         </main>
     </div>
    
+    {{-- message after performing action  --}}
+
+   @if (session()->has('expensesuccess'))
+   <script >
+       alert("Expense Added Successfully !")
+   </script>
+   @endif
+   @if (session()->has('expensefail'))
+   <script defer>
+       alert("Failed To Add Expense ! Please Try again Later")
+   </script>
+   @endif
+
     <script>
         function conformAddExpense(value){
             let conformMsg = document.getElementById('conformMsgWrapper');

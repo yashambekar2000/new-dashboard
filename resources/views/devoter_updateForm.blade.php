@@ -76,7 +76,7 @@
                   <div class="conformMsgBtnsDiv">     
                      <button class="btn btn-success" type="submit">Update</button> 
 
-                     <div class="btn btn-danger" onclick="conformAddExpense('cancel')">Cancel</div>
+                     <div class="btn btn-danger cancelBtn" onclick="conformAddExpense('cancel')">Cancel</div>
                   </div>
               </div>
           </div>

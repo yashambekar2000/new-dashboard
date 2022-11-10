@@ -27,6 +27,7 @@
             <div class="addUserBtnWrapper">
                 <a href="/devoters/devoter-form"><button class="btn btn-success">Add Devoter</button></a>
             </div>
+            
             <div class="tableDiv">
             <table>
                 <tr>
@@ -71,7 +72,7 @@
                         <p>Are you Sure ?</p>
                         <div class="conformMsgBtnsDiv">     
                             <button class="btn btn-success" onclick="redirectToDelete()" type="submit">Delete</button>
-                           <div class="btn btn-danger" onclick="conformDelete('cancel')">Cancel</div>
+                           <div class="btn btn-danger cancelBtn" onclick="conformDelete('cancel')">Cancel</div>
                         </div>
                     </div>
                 </div>

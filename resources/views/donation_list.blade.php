@@ -25,9 +25,17 @@
                    <h2> Donations list</h2>
             </nav>
 
+            @php
+            $Serialno = 1;
+            $totalAmount=0;
+            // to calculate the total amount-----------------------
+            foreach ($details2 as $item) {
+                $totalAmount = $item['amount']+$totalAmount;
+            };
+        @endphp
             <div class="totalAmountDiv">
                 <p class="totalAmountHeading">Total Amount Recived :</p>
-                <p class="totalAmount">1001 ₹</p>
+                <p class="totalAmount">{{$totalAmount}} ₹</p>
             </div>
 
             <div class="tableDiv">
@@ -41,130 +49,23 @@
                         <th>Mobile</th>
                         <th>Amount</th>
                     </tr>
-                    {{-- @foreach ($details1 as $item)
+
+                    @if ($details2 != null)
+                    @foreach ($details2 as $item)
                     <tr>
+                        <td>{{$Serialno++;}}</td>
                         <td>{{$item['name']}}</td>
                         <td>{{$item['address']}}</td>
-                        <td>{{$item['email']}}</td>
+                        <td>{{$item['mobile']}}</td>
                         <td>{{$item['mobile']}}</td>
                         <td class="amount">+ {{$item['amount']}} ₹</td>
                     </tr>
-                    @endforeach --}}
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Raj Ingale</td>
-                        <td>karvenagar pune</td>
-                        <td>11-nov-2022</td>
-                        <td>1234567890</td>
-                        <td class="amount">+ 501 ₹</td>
-                    </tr>
-                
+                    @endforeach
+                @else
+                    <tr ><td colspan="6" style="text-align: center;font-size: 20px">
+                        No Data to show
+                    </td> </tr>
+                @endif
                 </table>
                 </div>
         </main>

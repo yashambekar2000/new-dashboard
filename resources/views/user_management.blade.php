@@ -26,7 +26,7 @@
             </nav>
 
             <div class="addUserBtnWrapper">
-                <a href="/adduser"><button class="btn btn-success">Add User</button></a>
+                <a href="/addusers"><button class="btn btn-success">Add User</button></a>
             </div>
             <div class="tableDiv">
                 <table>
@@ -42,32 +42,29 @@
                         $Serialno = 1;
                     @endphp
     
-                    {{-- @if ($details1 != null) --}}
-                    {{-- @foreach ($details1 as $id=>$item) --}}
+                    @if ($userList != null)
+                    @foreach ($userList as $id=>$item)
                     <tr>
                         <td>
-                           1
+                           {{$Serialno++;}}
                         </td>
-                        <td>raj</td>
-                        <td>raj@moxiedeck.com</td>
-                        <td>1234567890</td>
+                        <td>{{$item['name']}}</td>
+                    <td>{{$item['email']}}</td>
+                    <td>{{$item['mobile']}}</td>
                         <td>
 
                             <div class="btn editBtn" onclick="userFun('edit')"><i class="fa fa-edit"></i></div>
                             
                             <div class="btn deleteBtn" onclick="userFun('delete')"><i class="fa fa-trash"></i></div>
                            
-                            {{-- <a href="/devoter/{{$id}}"><button class="btn editBtn" ><i class="fa fa-edit"></i></button></a> --}}
-                            
-                           {{-- <button class="btn deleteBtn" onclick="conformDelete('delete','{{$id}}')" value="{{$id}}"><i class="fa fa-trash"></i></button> --}}
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
-                    {{-- @else --}}
-                        {{-- <tr ><td colspan="6" style="text-align: center;font-size: 20px">
+                    @endforeach
+                    @else
+                      <tr ><td colspan="6" style="text-align: center;font-size: 20px">
                             No Data to show
-                        </td> </tr> --}}
-                    {{-- @endif --}}
+                        </td> </tr> 
+                    @endif
                     </table>
                         </div>
 
@@ -89,7 +86,7 @@
                         <div class="conformMsg">
                             <p>Enter Admin Password</p>
                              
-                            <form action="" id="editForm">
+                            <form action="/update-user/{id}" id="editForm">
                                 <input type="password" class="form-control" id="exampleInputPassword1" required placeholder="Admin Password">
                                 <div class="conformMsgBtnsDiv">     
                                     <button class="btn btn-success" type="submit">Edit the User</button>

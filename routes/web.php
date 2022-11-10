@@ -59,8 +59,8 @@ Route::get( '/devoter-delete/{id}', [DashbordController::class , 'delete'])->mid
 //*************************User Management******************************** */
 Route::get( '/users' , [DashbordController::class , 'showUsers'])->middleware('guard');
 
-Route::post( '/addusers' , function(){
-    return view('Add_user');
+Route::get( '/addusers' , function(){
+    return view('user_form');
 })->middleware('guard');
 
 Route::post( '/saveuser' , [DashbordController::class , 'saveUser'])->middleware('guard');

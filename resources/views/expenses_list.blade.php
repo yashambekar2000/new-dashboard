@@ -41,19 +41,21 @@
 
             <form class="addExpense" action="/expenses" method="post">
                 {{csrf_field()}}
+                
                 <input type="text" name="description" required class="form-control form-control-lg" placeholder="Expense Description">
-                <span style="color: red">
+                
+                <div style="color: red">
                     @error('description')
                     {{$message}}
                     @enderror
-                  </span>
+                </div>
 
                 <input class="form-control" name="amount" min="1" id="addAmount" required type="number" placeholder="Amount ₹">
-                <span style="color: red">
+                <div style="color: red">
                     @error('amount')
                     {{$message}}
                     @enderror
-                  </span>
+                </div>
 
                 <div class="btn btn-success" onclick="conformAddExpense('add')">Add Expense</div>
                 <button type="reset" class="btn btn-outline-secondary">Clear</button>

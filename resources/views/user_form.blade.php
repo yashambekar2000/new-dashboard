@@ -19,7 +19,7 @@
   <main>
 
 
-    <form action= "" method="POST">
+    <form action= "/saveuser" method="POST">
 @csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>
@@ -78,12 +78,12 @@
 
           <div class="addWrapper" id="addWrapper">
             <div class="conformMsg">
-                <p>Enter Admin Password to Add the User</p>
+                <p>Enter Admin Password</p>
     
                 <div id="editForm">
                     <input type="password" name="adminPassword" class="form-control" id="exampleInputPassword1" required placeholder="Admin Password">
                     <div class="conformMsgBtnsDiv">     
-                        <button class="btn btn-success" type="submit">Add</button> 
+                        <button class="btn btn-success" type="submit">Add the User</button> 
                         <button class="btn btn-danger cancelBtn" type="reset" onclick="userFun('cancel')">Cancel</button>
                     </div>
                 </div>

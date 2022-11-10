@@ -293,7 +293,7 @@ function saveUser(Request $request){
                            'name' => 'required|max:120|string',
                            'email'  => 'required|email',
                            'mobile' => 'required|regex:/^[0-9]{10}$/',
-                           'password' => 'string|min:7|confirmed|required_with:password_confirmed',
+                           'password' => 'string|min:7|confirmed|required_with:confirmpassword',
                         ]);
 
 
@@ -313,15 +313,15 @@ function saveUser(Request $request){
              $postRef = $database->getReference('/users')->push($postData);
 
             if($postRef){
-                 return redirect('Add_user')->with('addsuccess' , true);
+                 return redirect('addusers')->with('addsuccess' , true);
                  }
             else{
-                 return redirect('Add_user')->with('addfail' , true); 
+                 return redirect('addusers')->with('addfail' , true); 
                 }
   
         }
         else{
-            return redirect('Add_user')->with('status' , 'Admin Password Does not Matches.');
+            return redirect('addusers')->with('status' , 'Admin Password Does not Matches.');
             }
     }
 }

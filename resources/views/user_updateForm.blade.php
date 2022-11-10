@@ -19,7 +19,7 @@
   <main>
 
 
-    <form action= "" method="POST">
+    <form action= "/update-user-add/{id}" method="POST">
 @csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>

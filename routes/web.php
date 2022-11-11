@@ -66,4 +66,7 @@ Route::get( '/addusers' , function(){
 Route::post( '/saveuser' , [DashbordController::class , 'saveUser'])->middleware('guard');
 Route::get( '/update-user/{id}' , [DashbordController::class , 'updateUser'])->middleware('guard');
 Route::post( '/update-user-add/{id}' , [DashbordController::class , 'addUpdateUser'])->middleware('guard');
-Route::get( '/devoter-delete/{id}', [DashbordController::class , 'deleteUser'])->middleware('guard');
+Route::get( '/delete-user/{id}', [DashbordController::class , 'deleteUser'])->middleware('guard');
+
+
+Route::get('/logout-user' , [LoginController::class , 'logout'])->middleware('guard');

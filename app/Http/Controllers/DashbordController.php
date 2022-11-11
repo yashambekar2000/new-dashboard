@@ -256,11 +256,12 @@ if($deleteData){
         $database = $firebase->createDatabase();
         
         $details = $database->getReference('/users');
+        $admindetails = $database->getreference('/admin');
         // $details=$details->getvalue();
         
          $userList=$details->getvalue() ;
-         
-         return view('user_management' , ['userList'=> $userList ]);
+         $adminList=$admindetails->getvalue() ;
+         return view('user_management' , ['userList'=> $userList , 'adminList'=> $adminList ]);
       
         }
 
@@ -282,18 +283,19 @@ function saveUser(Request $request){
                     $database = $firebase->createDatabase();
   
                      // ----------fetching data from database------------------------
-                     $details = $database->getReference('/users');
+                     $admindetails = $database->getReference('/admin');
 
-                        $details=$details->getvalue();
+                        $admindetails=$admindetails->getvalue();
 
-                foreach($details as $id=>$detail){
+                foreach($admindetails as $id=>$detail){
                      if( $detail['password']==($adminPassword)){
     
                        $this->validate($request , [
                            'name' => 'required|max:120|string',
                            'email'  => 'required|email',
                            'mobile' => 'required|regex:/^[0-9]{10}$/',
-                           'password' => 'string|min:7|confirmed|required_with:confirmpassword',
+                           'password' => 'string|min:7',
+                           'confirmpassword' =>  'required_with:password|same:password|min:7'
                         ]);
 
 
@@ -339,12 +341,12 @@ function updateUser(Request $request , $id){
                              $database = $firebase->createDatabase();
   
                          // ----------fetching data from database------------------------
-                                 $details = $database->getReference('/users');
+                                 $admindetails = $database->getReference('/admin');
 
-                                 $details=$details->getvalue();
+                                 $admindetails=$admindetails->getvalue();
 
    
-                 foreach($details as $id=>$detail){
+                 foreach($admindetails as $id=>$detail){
                      if( $detail['password']==($adminPassword)){
 
                              $firebase = (new Factory)
@@ -414,10 +416,10 @@ function deleteUser(Request $request , $id){
                             $database = $firebase->createDatabase();
 
                         // ----------fetching data from database------------------------
-                            $details = $database->getReference('/users');
-                            $details=$details->getvalue();
+                            $admindetails = $database->getReference('/admin');
+                            $admindetails=$details->getvalue();
 
-                            foreach($details as $id=>$detail){
+                            foreach($admindetails as $id=>$detail){
                                     if( $detail['password']==($adminPassword)){
 
                                             $firebase = (new Factory)

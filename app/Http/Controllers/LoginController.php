@@ -45,46 +45,82 @@ class LoginController extends Controller
         //     }
 
   
-        $email=$request->email;
-        $password=$request->password;
+     $email=$request->email;
+    $password=$request->password;
 
-        //   ----------Connect with database-----------------
-    $firebase = (new Factory)
-    ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
-    ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
-
-
-    // $this->auth = $factory->createAuth();
-$database = $firebase->createDatabase();
-
- // ----------fetching data from database------------------------
- $details = $database->getReference('/users');
+                     $firebase = (new Factory)
+                        ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
+                        ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
+    
+                            $database = $firebase->createDatabase();
+    
+                    // ----------fetching data from database------------------------
+                            $detailsadmin = $database->getReference('/admin');
+                             $details = $database->getReference('/users');
 
 
- // ------------convert fetched data into an array---------------
-  $details=$details->getvalue() ;
+                    // ------------convert fetched data into an array---------------
+                            $details=$details->getvalue() ;
+    
+                          $detailsadmin=$detailsadmin->getvalue();
+                          
+ //------------------to authenticate email and password for admin --------------------
+             foreach($detailsadmin as $id=>$detailadmin){
+                        if( $detailadmin['email']==($email)){
+                                if($detailadmin['password']==($password)){
 
-//------------------to authenticate email and password--------------------
-foreach($details as $id=>$detail){
-    if( $detail['email']==($email)){
-            if($detail['password']==($password)){
+                                         $request->session()->put('id' , $id);
+                                         $request->session()->put('name', $detailadmin['name']);
+                                         $request->session()->put('email', $detailadmin['email']);
+                                            
+                                return redirect('/dashboard');
+                            }
+                            else{
+         //------------------to authenticate email and password for User--------------------
+                    foreach($details as $id=>$detail){
+                            if( $detail['email']==($email)){
+                                if($detail['password']==($password)){
              
-                    $request->session()->put('id' , $id);
-                    $request->session()->put('name', $detail['name']);
-                    $request->session()->put('email', $detail['email']);
-                    return redirect('/dashboard');
+                                            $request->session()->put('id' , $id);
+                                            $request->session()->put('name', $detail['name']);
+                                            $request->session()->put('email', $detail['email']);
+                                    
+                                return redirect('/dashboard');
+                            }
+                            else{
+                                    return redirect('/')->with('status',"Email or password does not match");
+                             }
             }
             else{
-                return redirect('/')->with('status',"Email or password does not match");
-            }
+                     return redirect('/')->with('status',"Email or password does not match");
+                }
+        }
+    }
 }
 else{
-    return redirect('/')->with('status',"Email or password does not match");
+        //------------------to authenticate email and password--------------------
+            foreach($details as $id=>$detail){
+                        if( $detail['email']==($email)){
+                            if($detail['password']==($password)){
+             
+                                    $request->session()->put('id' , $id);
+                                    $request->session()->put('name', $detail['name']);
+                                    $request->session()->put('email', $detail['email']);
+                            
+                            return redirect('/dashboard');
+                         }
+                        else{
+                                return redirect('/')->with('status',"Email or password does not match");
+                         }
+            }
+            else{
+                    return redirect('/')->with('status',"Email or password does not match");
+            }
+        }
+    }
 }
-}
 
-
-
+  
 
 
 
@@ -102,4 +138,21 @@ else{
 
      }
 
-}
+
+     function logout(){
+        // auth()->logout();
+        // return redirect()->route('/');
+    
+        // Auth::guard('web')->logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        // return redirect('/');
+    
+        Session::flush();
+        return redirect('/');
+    }
+    
+    }
+
+
+

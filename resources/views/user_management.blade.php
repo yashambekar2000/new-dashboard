@@ -20,10 +20,10 @@
             @include('layouts/sidebar')
         </header>
         <main>
-            <nav >
-                    <img src="img/logo.png" alt="logo">
-                     <h2>User Management</h2>
-            </nav>
+            @section('heading')
+            User Management
+            @endsection
+            @include('layouts/navbar')
 
             <div class="addUserBtnWrapper">
                 <a href="/addusers"><button class="btn btn-success">Add User</button></a>
@@ -53,9 +53,9 @@
                     <td>{{$item['mobile']}}</td>
                         <td>
 
-                            <div class="btn editBtn" onclick="userFun('edit')"><i class="fa fa-edit"></i></div>
+                            <div class="btn editBtn" onclick="userFun('edit', '{{$id}}')"><i class="fa fa-edit"></i></div>
                             
-                            <div class="btn deleteBtn" onclick="userFun('delete')"><i class="fa fa-trash"></i></div>
+                            <div class="btn deleteBtn" onclick="userFun('delete', '{{$id}}')"><i class="fa fa-trash"></i></div>
                            
                         </td>
                     </tr>
@@ -72,9 +72,10 @@
                     <div class="deleteWrapper" id="deleteWrapper">
                         <div class="conformMsg" >
                             <p>Enter Admin Password</p>
-                            <form action="" id="deleteForm">
-                                <input type="password" class="form-control" id="exampleInputPassword1" required placeholder="Admin Password">
-                                <div class="conformMsgBtnsDiv">     
+                            <form action="" method="POST" id="deleteForm">
+                                @csrf
+                                <input type="password" class="form-control" name="adminPassword" id="exampleInputPassword1" required placeholder="Admin Password">
+                                <div class="conformMsgBtnsDiv">    
                                     <button class="btn btn-success" type="submit">Delete the User</button>
                                    <button class="btn btn-danger cancelBtn"  type="reset" onclick="userFun('cancel')">Cancel</button>
                                 </div>
@@ -86,8 +87,9 @@
                         <div class="conformMsg">
                             <p>Enter Admin Password</p>
                              
-                            <form action="/update-user/{id}" id="editForm">
-                                <input type="password" class="form-control" id="exampleInputPassword1" required placeholder="Admin Password">
+                            <form action="" method="POST" id="editForm">
+                                @csrf
+                                <input type="password" class="form-control" name="adminPassword" id="exampleInputPassword1" required placeholder="Admin Password">
                                 <div class="conformMsgBtnsDiv">     
                                     <button class="btn btn-success" type="submit">Edit the User</button>
                                    <button class="btn btn-danger cancelBtn" type="reset" onclick="userFun('cancel')">Cancel</button>
@@ -100,9 +102,45 @@
 
     </div>
    
+    @if (session()->has('adminDeleteFail'))
+    <script defer>
+        alert("Admin Password is incorrect !! Failed To Delete User !")
+    </script>
+    @endif
+
+    @if (session()->has('adminpasswordfail'))
+    <script defer>
+        alert("Admin Password is incorrect !! Failed To Edit User !")
+    </script>
+    @endif
+
+    @if (session()->has('deletesuccess'))
+    <script defer>
+        alert("User Deleted Successfully")
+    </script>
+    @endif
+
+    @if (session()->has('deletefail'))
+    <script defer>
+        alert(" Failed To Delete User ! please try later")
+    </script>
+    @endif
+    @if (session()->has('updatesuccess'))
+    <script defer>
+        alert(" User Updated Successfully")
+    </script>
+    @endif
+    @if (session()->has('updatefail'))
+    <script defer>
+        alert(" Failed To Update User ! please try later")
+    </script>
+    @endif
+    
     <script>
 
-        function userFun(value){
+
+        function userFun(value ,id){
+            
             let deleteWrapper = document.getElementById('deleteWrapper');
             let editWrapper = document.getElementById('editWrapper');
             let editForm = document.getElementById('editForm');
@@ -111,11 +149,11 @@
             if(value=='edit'){
                 editWrapper.style.display="flex";
                 deleteWrapper.style.display="none";
-                editForm.action='/dashboard';
+                editForm.action=`/update-user/${id}`;
             }else if(value=='delete'){
                 deleteWrapper.style.display="flex";
                 editWrapper.style.display="none"
-                deleteForm.action='/dashboard'
+                deleteForm.action=`/delete-user/${id}`
             }else{
                 deleteWrapper.style.display="none";
                 editWrapper.style.display="none"

@@ -33,7 +33,7 @@ nav{
     display: flex;
     flex-direction: row;
     height: 80px;
-    background-color: #7DE5ED;
+    background-color: #7d9bed;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
@@ -50,21 +50,21 @@ nav>img{
 
 
 body{
-background-image: url('img/background.jpg');
+/* background-image: url('img/background.jpg');
 background-repeat:no-repeat;
 background-size:cover;
-background-attachment:fixed;
-/* background-color:#8D72E1; */
+background-attachment:fixed; */
+background-color:#cedfff;
 }
 
 form {
-  border: 6px solid #7DE5ED;
+  border: 6px solid #7d9bed;
 }
 
 label{
     font-size:40px;
     font-weight:700;
-    color:#7DE5ED;
+    color: #7d9bed;
 }
 /* Full-width inputs */
 input[type=email], input[type=password] {
@@ -81,8 +81,8 @@ input[type=email], input[type=password] {
 
 /* Set a style for all buttons */
 .login__submit {
-  background-color: #7DE5ED;
-  border: 3px solid #7DE5ED ;
+  background-color:  #7d9bed;
+  border: 3px solid #7d9bed ;
   color: white;
   padding: 14px 20px;
   margin: 6px 0;
@@ -224,8 +224,6 @@ window.alert("Login First");
 </button>	
 </form>
 </div>
-
-
 
 
 

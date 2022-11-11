@@ -19,10 +19,10 @@
             @include('layouts/sidebar')
         </header>
         <main>
-            <nav>
-                  <img src="img/logo.png" alt="logo">
-                 <h2> Devoters list</h2>
-            </nav>
+            @section('heading')
+            Devoters List
+            @endsection
+            @include('layouts/navbar')
 
             <div class="addUserBtnWrapper">
                 <a href="/devoters/devoter-form"><button class="btn btn-success">Add Devoter</button></a>
@@ -77,6 +77,10 @@
                     </div>
                 </div>
             </table>
+
+            {{-- <div class="row">
+                {{$details1->links()}}
+            </div> --}}
             </div>
         </main>
     </div>

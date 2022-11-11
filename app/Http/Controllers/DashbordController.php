@@ -323,13 +323,13 @@ function saveUser(Request $request){
   
         }
         else{
-            return redirect('addusers')->with('status' , 'Admin Password Does not Matches.');
+            return redirect('addusers')->with('adminfail',true );
             }
     }
 }
 
 //*************************** update User *********************************/
-function updateUser(Request $request , $id){
+function updateUser(Request $request , $userid){
 
                         //*************************check Admin Password***************** */
                                 $adminPassword=$request->adminPassword;
@@ -353,17 +353,17 @@ function updateUser(Request $request , $id){
                                 ->withServiceAccount(__DIR__.'/donationdata-firebase-adminsdk-a0irl-e3ce4e4306.json')
                                 ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
                                      $database = $firebase->createDatabase();
-                                     $editUser = $database->getReference("/users/$id")->getvalue();
+                                     $editUser = $database->getReference("/users/$userid")->getvalue();
 
                          if($editUser){
-                                    return view('Update_user' , compact('editUser','id'));
+                                    return view('user_updateForm' , compact('editUser','userid'));
                                      }
                              else{
                                     return redirect('users')->with('notfound', true);
                                 }
                  }
          else{
-                 return redirect('users')->with('status' , 'Admin Password Does not Matches.');
+                 return redirect('users')->with('adminpasswordfail' , true);
              }
     }
 }
@@ -375,8 +375,9 @@ function addUpdateUser(Request $request , $id){
                                 'name' => 'required|max:120|string',
                                 'email'  => 'required|email',
                                 'mobile' => 'required|regex:/^[0-9]{10}$/',
-                                'password' => 'required|string'
-                             ]);
+                                'password' => 'string|min:7',
+                                'confirmpassword' =>  'required_with:password|same:password|min:7'
+                                ]);
 
 
 
@@ -404,7 +405,7 @@ function addUpdateUser(Request $request , $id){
 
 
      //************************ Delete User ********************************* */
-function deleteUser(Request $request , $id){
+function deleteUser(Request $request , $userid){
   
                  //*************************check Admin Password***************** */
                             $adminPassword=$request->adminPassword;
@@ -417,7 +418,7 @@ function deleteUser(Request $request , $id){
 
                         // ----------fetching data from database------------------------
                             $admindetails = $database->getReference('/admin');
-                            $admindetails=$details->getvalue();
+                            $admindetails=$admindetails->getvalue();
 
                             foreach($admindetails as $id=>$detail){
                                     if( $detail['password']==($adminPassword)){
@@ -427,7 +428,7 @@ function deleteUser(Request $request , $id){
                                                 ->withDatabaseUri('https://donationdata-default-rtdb.firebaseio.com');
 
                                     $database = $firebase->createDatabase();
-                                    $deleteUser = $database->getReference("/users/$id")->remove();
+                                    $deleteUser = $database->getReference("/users/$userid")->remove();
 
                         if($deleteUser){
                                     return redirect('users')->with('deletesuccess' , true);
@@ -437,7 +438,7 @@ function deleteUser(Request $request , $id){
                                         }
                     }
                      else{
-                        return redirect('users')->with('status' , 'Admin Password Does not Matches.'); 
+                        return redirect('users')->with('adminDeleteFail' ,true); 
                         }
 
             }

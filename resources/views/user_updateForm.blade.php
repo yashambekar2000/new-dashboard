@@ -19,11 +19,11 @@
   <main>
 
 
-    <form action= "/update-user-add/{id}" method="POST">
+    <form action= "/update-user-add/{{$userid}}" method="POST">
 @csrf
         <div class="form-group col-md-10">
             <label for="formGroupExampleInput">Name</label>
-            <input type="text" value="" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" required>
+            <input type="text" value="{{$editUser['name']}}" name="name" required class="form-control" placeholder="Name" id="formGroupExampleInput" required>
             <span style="color: red">
               @error('name')
               {{$message}}
@@ -33,7 +33,7 @@
           
           <div class="form-group col-md-10 mobile" >
             <label for="inputEmail4">Mobile no.</label>
-            <input type="tel" value="" pattern="[0-9]{10}" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required >
+            <input type="tel" value="{{$editUser['mobile']}}" pattern="[0-9]{10}" name="mobile" placeholder="Mobile no." class="form-control" id="inputEmail4" required >
             <span style="color: red">
               @error('mobile')
               {{$message}}
@@ -43,7 +43,7 @@
      
             <div class="form-group col-md-10">
               <label for="inputEmail4">Email</label>
-              <input type="email" value="" name="email" class="form-control" id="inputEmail4" placeholder="Email" required>
+              <input type="email" value="{{$editUser['email']}}" name="email" class="form-control" id="inputEmail4" placeholder="Email" required>
               <span style="color: red">
                 @error('email')
                 {{$message}}
@@ -54,7 +54,7 @@
 
           <div class="form-group col-md-10">
             <label for="inputAddress" >Update Password</label>
-            <input type="password" value="" name="password" class="form-control" id="exampleInputPassword1" required placeholder="Password">
+            <input type="password" value="{{$editUser['password']}}" name="password" class="form-control" id="exampleInputPassword1" required placeholder="Password">
             <span style="color: red">
               @error('password')
               {{$message}}
@@ -64,7 +64,7 @@
 
           <div class="form-group col-md-10">
             <label for="inputAddress">Confirm Updated Password</label>
-            <input type="password" value="" name="confirmpassword" class="form-control" id="exampleInputPassword2" required placeholder="Confirm Password">
+            <input type="password" value="{{$editUser['password']}}" name="confirmpassword" class="form-control" id="exampleInputPassword2" required placeholder="Confirm Password">
             <span style="color: red">
               @error('confirmpassword')
               {{$message}}
@@ -73,7 +73,7 @@
           </div>
          
           <div class="btn btn-success" onclick="userFun('update')">Update</div>
-          <a href="./users"><div class="btn btn-outline-secondary" >Cancel</div></a>
+          <a href="../users"><div class="btn btn-outline-secondary" >Cancel</div></a>
 
 
           <div class="addWrapper" id="addWrapper">

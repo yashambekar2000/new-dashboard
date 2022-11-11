@@ -16,10 +16,10 @@
             @include('layouts/sidebar')
         </header>
         <main>
-            <nav >
-                    <img src="img/logo.png" alt="logo">
-                     <h2>DashBoard</h2>
-            </nav>
+            @section('heading')
+            DashBoard
+            @endsection
+            @include('layouts/navbar')
            
 
             <div class="imageContainer">

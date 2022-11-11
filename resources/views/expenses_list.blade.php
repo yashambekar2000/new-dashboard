@@ -20,10 +20,10 @@
             @include('layouts/sidebar')
         </header>
         <main>
-            <nav >
-                    <img src="img/logo.png" alt="logo">
-                     <h2>Expenses list</h2>
-            </nav>
+            @section('heading')
+            Expenses List
+            @endsection
+            @include('layouts/navbar')
 
             @php
             $Serialno = 1;
